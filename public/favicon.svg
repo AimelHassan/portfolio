@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Outer subtle circular border -->
+  <circle cx="16" cy="16" r="15" fill="#ffffff" stroke="#e4e4e7" stroke-width="1.5"/>
+  <!-- Main structural shell (Dark Zinc) -->
+  <path d="M16 7L24 11.5V20.5L16 25L8 20.5V11.5L16 7Z" fill="#18181b"/>
+  <!-- Core glowing element (Emerald Green) -->
+  <path d="M16 11.5L20 13.8V18.2L16 20.5L12 18.2V13.8L16 11.5Z" fill="#10b981"/>
+  <!-- Isometric internal shading -->
+  <path d="M16 7V25" stroke="#ffffff" stroke-width="0.75" opacity="0.15"/>
+  <path d="M8 11.5L24 20.5" stroke="#ffffff" stroke-width="0.75" opacity="0.15"/>
+  <path d="M24 11.5L8 20.5" stroke="#ffffff" stroke-width="0.75" opacity="0.15"/>
+</svg>
