@@ -1,0 +1,42 @@
+# Aimel Hassan
+
+Aimel Hassan is a builder, software engineer, and the founder of Valith AI Solutions. He builds applied AI systems that turn messy business workflows into trackable operating systems.
+
+## Contact & Links
+- **Email**: aimel@valith.co
+- **Calendar**: [Book a Call](https://cal.com/aimelhasan)
+- **GitHub**: [AimelHassan](https://github.com/AimelHassan)
+- **LinkedIn**: [Aimel Hassan](https://linkedin.com/in/aimelhassan)
+- **Website**: [aimelhassan.com](https://aimelhassan.com)
+- **Location**: Islamabad, Pakistan
+
+## Core Focus
+Aimel finds where a business is leaking (money, time, follow-ups, documents) and builds the AI-powered system that plugs it. He focuses on applied AI systems for messy workflows:
+- **Tenders & Proposals**: RAG-based systems to monitor sources, score fit, and draft responses.
+- **Email Operations**: High-throughput mail classification and summarization.
+- **Document Extraction**: Automated data ingestion from messy PDFs and scans.
+- **Dashboards & Alerts**: Internal tooling for monitoring pipelines and audit trails.
+
+## What I've Shipped
+
+### Valith Bid Desk (Active Flagship Build)
+An AI first-review system for firms dealing with tenders, RFPs, TORs, EOIs, donor opportunities, and proposal-driven work.
+- **Features**: Tracks new opportunities, reads the documents, scores fit, flags risks, and consolidates them into a single pipeline.
+- **Tech Stack**: Python, FastAPI, Playwright, Supabase, Postgres, FAISS, Docker, Cloud Run, LangChain, RAG.
+
+### Eon (First Paid Deployment)
+An email operations system built for a logistics company.
+- **Features**: Read, classified, and summarized 500+ operational emails in its first production stretch.
+
+### Hermes
+An outreach and follow-up system that qualified leads and gathered 155+ waitlist signups. Shelved to focus on bespoke workflow systems that clients couldn't buy off-the-shelf.
+
+### Dashboards
+Operating dashboards for opportunity pipelines, source health, review status, audit trails, alerts, and team activity.
+
+## Founder Loop
+Aimel operates as a solo founder leading the entire lifecycle:
+- **Sales & Discovery**: Sitting down with business owners, finding leaks, and identifying manual operations.
+- **Scope & Design**: Designing systems that work with the business's existing tools.
+- **Build & Tech Stack**: React, Vite, Tailwind CSS (frontend), Python, FastAPI, Supabase, PostgreSQL (backend).
+- **Deployment & Client Feedback**: Installing systems, monitoring performance, and iterating based on real user feedback.

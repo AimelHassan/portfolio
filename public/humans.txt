@@ -1,0 +1,14 @@
+/* TEAM */
+    Founder: Aimel Hassan
+    Contact: aimel@valith.co
+    GitHub: https://github.com/AimelHassan
+    LinkedIn: https://linkedin.com/in/aimelhassan
+    Location: Islamabad, Pakistan
+
+/* SITE */
+    Last update: 2026-06-25
+    Standards: HTML5, CSS3, ESNext
+    Framework: React (Vite)
+    Styling: Tailwind CSS v4
+    Animations: CSS Spotlight Hover, Canvas-based transparent video luma keying
+    Hosting: Vercel
