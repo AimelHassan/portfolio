@@ -1,133 +1,86 @@
-"use client";
+import { useEffect, useState } from "react";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-function cn(...inputs: (string | undefined | null | false)[]) {
-  return twMerge(clsx(inputs));
+function getOrdinalSuffix(i: number) {
+  const j = i % 10;
+  const k = i % 100;
+  if (j === 1 && k !== 11) return "st";
+  if (j === 2 && k !== 12) return "nd";
+  if (j === 3 && k !== 13) return "rd";
+  return "th";
 }
 
-export default function Navbar() {
-  const [activeSection, setActiveSection] = useState<string>("hero");
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+export function Navbar() {
+  // Initialize with cached count from localStorage to prevent layout flickering on page refresh
+  const [visitorCount, setVisitorCount] = useState<number | null>(() => {
+    if (typeof window !== "undefined") {
+      const cached = localStorage.getItem("portfolio-visitor-cache");
+      return cached ? parseInt(cached, 10) : null;
+    }
+    return null;
+  });
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      {
-        rootMargin: "-50% 0px -50% 0px", // Trigger when section is in the middle of the screen
-      }
-    );
+    // Session storage prevents page refreshes from inflating visitor count
+    const isVisited = sessionStorage.getItem("portfolio-visited");
+    const url = isVisited 
+      ? "https://api.counterapi.dev/v1/aimelhasan-portfolio/visits/"
+      : "https://api.counterapi.dev/v1/aimelhasan-portfolio/visits/up";
 
-    const sections = document.querySelectorAll("section[id]");
-    sections.forEach((section) => observer.observe(section));
-
-    return () => observer.disconnect();
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && typeof data.count === "number") {
+          setVisitorCount(data.count);
+          localStorage.setItem("portfolio-visitor-cache", String(data.count));
+          sessionStorage.setItem("portfolio-visited", "true");
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to fetch visitor count:", err);
+      });
   }, []);
 
-  // Prevent scroll when mobile menu is open
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isMobileMenuOpen]);
-
   return (
-    <>
-      {/* Desktop Header */}
-      <header className="hidden md:flex fixed top-0 left-0 w-full z-50 p-12 justify-between items-start pointer-events-auto">
-        <div className="flex flex-col gap-1">
-          <span className="font-grotesk text-[10px] uppercase tracking-[0.5em] text-aurum/40">
-            branding.core / v0.1
-          </span>
-          <div className="font-garamond italic text-2xl lowercase tracking-tighter text-quicksilver opacity-60">
-            quiet ignition
-          </div>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#fcfcfc]/80 backdrop-blur-md transition-colors duration-300">
+      <div className="max-w-3xl mx-auto px-5 sm:px-6 h-[64px] sm:h-[72px] flex items-center justify-between">
+        <div className="flex items-center gap-4 sm:gap-6 text-[14px] sm:text-[14.5px] font-medium">
+          <a href="#" className="text-zinc-900">
+            Home
+          </a>
+          <a
+            href="#projects"
+            className="text-zinc-500 hover:text-zinc-900 transition-colors"
+          >
+            Work
+          </a>
+          <a
+            href="#"
+            className="text-zinc-500 hover:text-zinc-900 transition-colors"
+          >
+            Notes
+          </a>
+          <a
+            href="#contact"
+            className="text-zinc-500 hover:text-zinc-900 transition-colors"
+          >
+            Contact
+          </a>
         </div>
-        <nav className="flex gap-12 items-center">
-          {["hero", "ventures", "archive", "connect"].map((section) => (
-            <Link key={section} href={`#${section}`} className="group flex flex-col items-center gap-1">
-              <span className={cn(
-                "font-grotesk text-[10px] uppercase tracking-[0.4em] transition-colors duration-500",
-                activeSection === section ? "text-aurum" : "text-quicksilver/60 group-hover:text-aurum"
-              )}>
-                {section === 'hero' ? 'manifesto' : section}
+        <div className="text-[13px] sm:text-[13.5px] text-zinc-500 font-medium whitespace-nowrap min-w-[100px] text-right flex items-center justify-end">
+          {visitorCount !== null ? (
+            <>
+              You are the{" "}
+              <span className="font-semibold text-zinc-800 ml-1">
+                {visitorCount.toLocaleString()}
               </span>
-              <div className={cn(
-                "h-[1px] transition-all duration-700 bg-aurum",
-                activeSection === section ? "w-full" : "w-0 group-hover:w-full"
-              )}></div>
-            </Link>
-          ))}
-          <a 
-            href="/resume.pdf" 
-            download="Aimel_Hassan_Resume.pdf"
-            className="group flex flex-col items-center gap-1 ml-4"
-          >
-            <span className="font-grotesk text-[10px] uppercase tracking-[0.4em] text-obsidian bg-aurum px-5 py-2 hover:bg-white transition-colors duration-500">
-              resume
-            </span>
-          </a>
-        </nav>
-      </header>
-
-      {/* Mobile Header */}
-      <header className="md:hidden fixed top-0 left-0 w-full z-50 p-6 flex justify-end items-center pointer-events-auto">
-        <button 
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="z-50 font-grotesk text-[10px] uppercase tracking-[0.4em] text-aurum/80 px-4 py-2 border border-aurum/20 bg-obsidian/50 backdrop-blur-sm"
-        >
-          {isMobileMenuOpen ? "CLOSE" : "MENU"}
-        </button>
-      </header>
-
-      {/* Mobile Menu Overlay */}
-      <div className={cn(
-        "md:hidden fixed inset-0 z-40 bg-obsidian/95 backdrop-blur-xl flex flex-col items-center justify-center transition-all duration-700 pointer-events-auto",
-        isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
-      )}>
-        <nav className="flex flex-col items-center gap-12">
-          {["hero", "ventures", "archive", "connect"].map((section) => (
-            <Link 
-              key={section} 
-              href={`#${section}`} 
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="group flex flex-col items-center gap-2"
-            >
-              <span className={cn(
-                "font-garamond italic text-5xl lowercase tracking-tighter transition-colors duration-500",
-                activeSection === section ? "text-aurum" : "text-quicksilver group-hover:text-aurum"
-              )}>
-                {section === 'hero' ? 'manifesto' : section}
-              </span>
-              <div className={cn(
-                "h-[1px] transition-all duration-700 bg-aurum",
-                activeSection === section ? "w-full" : "w-0 group-hover:w-full"
-              )}></div>
-            </Link>
-          ))}
-          <a 
-            href="/resume.pdf" 
-            download="Aimel_Hassan_Resume.pdf"
-            className="mt-8 font-garamond italic text-4xl lowercase tracking-tighter text-obsidian bg-aurum px-12 py-3 hover:bg-white transition-colors duration-500"
-          >
-            resume doc
-          </a>
-        </nav>
+              <sup className="text-[9px] ml-0.5 font-bold">{getOrdinalSuffix(visitorCount)}</sup> visitor
+            </>
+          ) : (
+            // Subtle loading skeleton matching the typography height to prevent layout shifts
+            <span className="inline-block w-24 h-4 bg-zinc-100 animate-pulse rounded" />
+          )}
+        </div>
       </div>
-    </>
+    </nav>
   );
 }

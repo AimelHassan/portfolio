@@ -1,20 +1,45 @@
-import Link from "next/link";
+import { Github, Mail, Linkedin } from "lucide-react";
 
-export default function Footer() {
+export function Footer() {
   return (
-    <footer className="fixed bottom-6 right-6 md:bottom-0 md:left-0 md:w-full z-50 md:p-12 flex justify-end items-end pointer-events-none">
-      
-      <div className="text-right flex flex-col items-end gap-2 pointer-events-auto">
-        <Link href="#connect" className="group cursor-pointer flex flex-col items-end">
-          <span className="font-grotesk text-[10px] uppercase tracking-[0.4em] text-quicksilver/60 group-hover:text-aurum transition-colors">
-            connect.terminal
-          </span>
-          <div className="h-[1px] w-0 group-hover:w-full bg-aurum transition-all duration-700"></div>
-        </Link>
-        <p className="hidden md:block font-grotesk text-[8px] uppercase tracking-[0.5em] text-white/20 mt-4">
-          © MMXXIV OBSIDIAN STAGE
-        </p>
-      </div>
-    </footer>
+    <>
+      <footer className="py-8 border-t border-zinc-200 flex flex-col sm:flex-row items-center justify-between gap-6 text-[14px]">
+        <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
+          <span className="text-zinc-500">© 2026 Aimel Hassan.</span>
+          <div className="flex items-center gap-6 text-zinc-600 font-medium">
+            <a href="#" className="hover:text-zinc-900 transition-colors">
+              Home
+            </a>
+            <a href="#projects" className="hover:text-zinc-900 transition-colors">
+              Featured Work
+            </a>
+          </div>
+        </div>
+        <div className="flex items-center gap-5 text-zinc-500">
+          <a
+            href="mailto:aimel@valith.co"
+            className="hover:text-zinc-900 transition-colors"
+          >
+            <Mail className="w-[18px] h-[18px]" strokeWidth={2} />
+          </a>
+          <a
+            href="https://github.com/AimelHassan"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-zinc-900 transition-colors"
+          >
+            <Github className="w-[18px] h-[18px]" strokeWidth={2} />
+          </a>
+          <a
+            href="https://linkedin.com/in/aimelhassan"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-zinc-900 transition-colors"
+          >
+            <Linkedin className="w-[18px] h-[18px]" strokeWidth={2} />
+          </a>
+        </div>
+      </footer>
+    </>
   );
 }
